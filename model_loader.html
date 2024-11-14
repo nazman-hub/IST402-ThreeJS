@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js GLTF Example</title>
+
+<body>
+    <canvas id='threejs_canvas' width="800" height="400"></canvas>
+    <p> Model file name: <input id="filename" type="text"><br>
+        <button id="submit" onclick="loadModel()"> Load Model </button>
+    </p>
+</body>
+
+<script type="importmap">
+    {
+      "imports": {
+        "three": "https://threejs.org/build/three.module.js",
+        "three/examples/jsm/loaders/GLTFLoader.js": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js"
+      }
+    }
+    </script>
+<script type="module">
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+  
+    // Create the scene
+    export var scene = new THREE.Scene();
+    export var model;
+    export var object;
+    export var objects = [];
+    export var canvas, renderer;
+    export var filename;
+    export var controls;
+
+
+    var objectFound = false;
+
+    // Set up the canvas and the renderer
+    canvas = document.getElementById('threejs_canvas');
+    renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+    
+
+    // Set up the camera
+    var camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+    camera.position.z = 50;
+
+    //renderer = new THREE.WebGLRenderer();
+    document.body.appendChild(renderer.domElement);
+    controls = new OrbitControls( camera, renderer.domElement );
+
+    // Add some light
+    var light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(1, 1, 1).normalize();
+    scene.add(light);
+    controls.update();
+
+    // Animation loop
+    function render() {
+        objects.forEach(function (object, index) {
+            object.rotation.y += 0.005 * index / 2;
+        });
+        controls.update();
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+
+    function loadModel() {
+        filename = document.getElementById("filename").value;
+        console.log(filename);
+        // Load the glTF model
+        var loader = new GLTFLoader();
+        loader.load(filename, function (gltf) {
+            model = gltf.scene;
+            scene.add(model);
+
+            model.traverse(function (object) {
+                objects.push(object);
+            });
+            if (object) {
+                objectFound = true;
+            } else {
+                console.log('Object not found');
+            }
+        }, undefined, function (error) {
+            console.error(error);
+        });
+
+    }
+
+    render();
+    window.scene = scene;
+    window.model = model;
+    window.objects = objects;
+    window.camera = camera;
+    window.controls = controls;
+    window.loadModel = loadModel;
+</script>
+</head>
+
+<body>
+</body>
+
+</html>

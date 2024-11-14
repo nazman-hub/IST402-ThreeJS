@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Three.js - Scenegraph - Sun Earth</title>
+  </head>
+  <body>
+    <canvas id="threejs_canvas" width="800" height="400">
+		
+	</canvas>
+</div>
+</body>
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://threejs.org/build/three.module.js"
+   }
+}
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.0/math.min.js"></script>
+<script type="module" src = "solarsystem_navigation.js"> </script> 
+<p>View point: </p>
+<input type="radio" value = "top" name="viewpoint" checked/> Top View<br>
+<input type="radio" value = "side" name="viewpoint"/> Side View<br>
+
+<p>Rotation: </p>
+<input type="checkbox" id="solarsystem" value="yes" onchange="test()"> Solar System<br>
+<input type="checkbox" id="sun" value="yes"> Sun <br>
+<input type="checkbox" id="earth" value="yes" > Earth 
+
+<p><button id = "right">Move Right</button><button id = "left">Move Left</button></p>
+<p><button id = "up">Move Up</button><button id = "down">Move Down</button></p>
+<p><button id = "forward">Move Forward</button><button id = "backward">Move Backward</button></p>
+<p><button id = "turnright">Turn Right</button><button id = "turnleft">Turn Left</button></p>
+
+
+</html>

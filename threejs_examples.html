@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>A Simple Cube with three.js</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+
+
+<body>
+  <script type="importmap">
+    {
+      "imports": {
+          "three": "https://threejs.org/build/three.module.js"
+      }
+    }
+  </script>
+
+  <canvas id="threejs_canvas" width="800" height="800"></canvas>
+
+  <script type="module" src="cube_threejs.js"></script>
+
+</body>
+
+</html>
